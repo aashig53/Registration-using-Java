@@ -1,0 +1,346 @@
+package Swing;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPasswordField;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
+
+public class registration extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textName;
+	private JTextField textadd;
+	private JTextField textage;
+	private JTextField textmob;
+	private JTextField textemail;
+	private JTextField textuser;
+	private JPasswordField textpassword;
+	private JTextField textconfirm;
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					registration frame = new registration();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	public registration() {
+		setTitle("Registration Form");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 433, 521);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		//Adding labels
+		
+		JLabel lblNewLabel = new JLabel("Name");
+		lblNewLabel.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel.setBounds(24, 11, 79, 31);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Address");
+		lblNewLabel_1.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(24, 53, 79, 31);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblgender = new JLabel("Gender");
+		lblgender.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblgender.setBounds(24, 95, 79, 31);
+		contentPane.add(lblgender);
+		
+		JLabel lblNewLabel_3 = new JLabel("Age");
+		lblNewLabel_3.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel_3.setBounds(24, 137, 79, 31);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Mobile No.");
+		lblNewLabel_4.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel_4.setBounds(24, 179, 111, 36);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Email");
+		lblNewLabel_5.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel_5.setBounds(24, 226, 79, 31);
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("User Name");
+		lblNewLabel_6.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel_6.setBounds(24, 268, 79, 31);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Password");
+		lblNewLabel_7.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel_7.setBounds(24, 310, 79, 31);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_2 = new JLabel("Confirm Password");
+		lblNewLabel_2.setFont(new Font("SimSun", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(24, 352, 147, 31);
+		contentPane.add(lblNewLabel_2);
+		
+		//Adding text fields
+		
+		textName = new JTextField();
+		textName.setFont(new Font("SimSun", Font.BOLD, 16));
+		textName.setBounds(188, 16, 197, 20);
+		contentPane.add(textName);
+		textName.setColumns(10);
+		
+		textadd = new JTextField();
+		textadd.setFont(new Font("SimSun", Font.BOLD, 16));
+		textadd.setBounds(188, 58, 197, 20);
+		contentPane.add(textadd);
+		textadd.setColumns(10);
+		
+		textage = new JTextField();
+		textage.setFont(new Font("SimSun", Font.BOLD, 16));
+		textage.setBounds(188, 142, 197, 20);
+		contentPane.add(textage);
+		textage.setColumns(10);
+		
+		textmob = new JTextField();
+		textmob.setFont(new Font("SimSun", Font.BOLD, 16));
+		textmob.setBounds(188, 187, 197, 20);
+		contentPane.add(textmob);
+		textmob.setColumns(10);
+		
+		textemail = new JTextField();
+		textemail.setFont(new Font("SimSun", Font.BOLD, 16));
+		textemail.setBounds(188, 231, 197, 20);
+		contentPane.add(textemail);
+		textemail.setColumns(10);
+		
+		textuser = new JTextField();
+		textuser.setFont(new Font("SimSun", Font.BOLD, 16));
+		textuser.setBounds(188, 273, 197, 20);
+		contentPane.add(textuser);
+		textuser.setColumns(10);
+		
+		textpassword = new JPasswordField();
+		textpassword.setFont(new Font("SimSun", Font.BOLD, 16));
+		textpassword.setBounds(188, 315, 197, 20);
+		contentPane.add(textpassword);
+		textpassword.setColumns(10);
+		
+		textconfirm = new JPasswordField();
+		textconfirm.setFont(new Font("SimSun", Font.BOLD, 16));
+		textconfirm.setBounds(188, 358, 197, 20);
+		contentPane.add(textconfirm);
+		textconfirm.setColumns(10);
+		
+		JRadioButton rdbtnfemale = new JRadioButton("F");
+		rdbtnfemale.setFont(new Font("SimSun", Font.BOLD, 16));
+		rdbtnfemale.setBounds(183, 99, 89, 23);
+		contentPane.add(rdbtnfemale);
+		
+		JRadioButton rdbtnmale = new JRadioButton("M");
+		rdbtnmale.setFont(new Font("SimSun", Font.BOLD, 16));
+		rdbtnmale.setBounds(274, 99, 111, 23);
+		contentPane.add(rdbtnmale);
+		
+		//Submit Button 
+		
+		JButton btnsubmit = new JButton("Submit");
+		btnsubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//Checking if fields are empty
+				
+				String name1 = textName.getText().trim();
+				String address1 = textadd.getText().trim();
+				String age1 = textage.getText().trim();
+				String phone1 = textmob.getText().trim();
+				String email1 = textemail.getText().trim();
+				String username1 = textuser.getText().trim();
+				String password1 = textpassword.getText().trim();
+				String password2 = textconfirm.getText().trim();
+				
+				if (name1.isEmpty() || address1.isEmpty() || age1.isEmpty() || phone1.isEmpty() || phone1.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || password2.isEmpty() || (!rdbtnmale.isSelected() && !rdbtnfemale.isSelected())) {
+                    JOptionPane.showMessageDialog(btnsubmit, "Credential(s) empty");
+                    return; // Stop further execution
+                }
+				
+				//Creating Connection
+				
+				try {
+			        Class.forName("com.mysql.cj.jdbc.Driver");
+			        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "root"); //Type your password and username
+			        
+			        //Checking name format
+			        
+			        String name = textName.getText();
+			        if (!name.matches("[a-zA-Z]+")) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Invalid name");
+			            return; // Stop further execution
+			        }
+			        
+			        //Checking age format
+			        
+			        String ageText = textage.getText();
+			        if (!ageText.matches("\\d{1,3}")) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Invalid age");
+			            return; // Stop further execution
+			        }
+			        int age = Integer.parseInt(ageText);
+			        if (age < 0 || age > 100) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Invalid age. Age must be between 0 and 100.");
+			            return; // Stop further execution
+			        }
+			        
+			        // Checking mobile number format
+			        
+			        String mobile = textmob.getText();
+			        if (!mobile.matches("[0-9]+") || mobile.length() != 10) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Invalid mobile number format. Please enter a 10-digit number.");
+			            return; // Stop further execution
+			        }
+
+			        // Checking email format
+			        
+			        String email = textemail.getText();
+			        if (!email.contains("@") || !email.endsWith(".com")) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Invalid email");
+			            return; // Stop further execution
+			        }
+
+			        // Checking if email already exists
+			        
+			        String checkEmailQuery = "SELECT * FROM registration WHERE email = ?";
+			        PreparedStatement checkEmailStmt = con.prepareStatement(checkEmailQuery);
+			        checkEmailStmt.setString(1, email);
+			        ResultSet emailResultSet = checkEmailStmt.executeQuery();
+			        if (emailResultSet.next()) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Email already exists");
+			            return; // Stop further execution
+			        }
+
+			        // Checking if username already exists
+			        
+			        String checkUsernameQuery = "SELECT * FROM registration WHERE username = ?";
+			        PreparedStatement checkUsernameStmt = con.prepareStatement(checkUsernameQuery);
+			        checkUsernameStmt.setString(1, textuser.getText());
+			        ResultSet usernameResultSet = checkUsernameStmt.executeQuery();
+			        if (usernameResultSet.next()) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Username already exists");
+			            return; // Stop further execution
+			        }
+			        
+			        //Checking if passwords fields match
+			        
+			        String password = new String(textpassword.getPassword());
+			        String confirmPassword = new String(((JPasswordField) textconfirm).getPassword());
+			        if (!password.equals(confirmPassword)) {
+			            JOptionPane.showMessageDialog(btnsubmit, "Passwords does not match");
+			            return; // Stop further execution
+			        }
+
+			        // If email and username are unique, proceeding to insert the record
+			        
+			        String query = "INSERT INTO registration VALUES(?,?,?,?,?,?,?,?)";
+			        PreparedStatement ps = con.prepareStatement(query);
+			        ps.setString(1, textName.getText());
+			        ps.setString(2, textadd.getText());
+			        if (rdbtnmale.isSelected())
+			            ps.setString(3, rdbtnmale.getText());
+			        else
+			            ps.setString(3, rdbtnfemale.getText());
+			        ps.setInt(4, Integer.parseInt(textage.getText()));
+			        ps.setLong(5, Long.parseLong(textmob.getText()));
+			        ps.setString(6, textemail.getText());
+			        ps.setString(7, textuser.getText());
+			        ps.setString(8, textpassword.getText());
+			        int i = ps.executeUpdate();
+			        JOptionPane.showMessageDialog(btnsubmit, i + " Record Added");
+
+			        // Clearing the input fields after successful insertion
+			        
+			        textName.setText("");
+			        textadd.setText("");
+			        textage.setText("");
+			        textmob.setText("");
+			        textemail.setText("");
+			        textuser.setText("");
+			        textpassword.setText("");
+			        textconfirm.setText("");
+			        rdbtnmale.setSelected(false);
+			        rdbtnfemale.setSelected(false);
+
+			        ps.close();
+			        con.close();
+			    } catch (Exception e1) {
+			        e1.printStackTrace();
+			    }
+			}
+		});
+		btnsubmit.setFont(new Font("SimSun", Font.BOLD, 16));
+		btnsubmit.setBounds(49, 406, 111, 23);
+		contentPane.add(btnsubmit);
+		
+		//Reseting Button
+		
+		JButton btnreset = new JButton("Reset");
+		btnreset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textName.setText("");
+				textadd.setText("");
+				textage.setText("");
+				textmob.setText("");
+				textemail.setText("");
+				textuser.setText("");
+				textpassword.setText("");
+				textconfirm.setText("");
+				rdbtnmale.setSelected(false);
+	            rdbtnfemale.setSelected(false);
+			}
+		});
+		btnreset.setFont(new Font("SimSun", Font.BOLD, 16));
+		btnreset.setBounds(246, 406, 111, 23);
+		contentPane.add(btnreset);
+		
+		// Sign In option if user is already signed in
+		
+		JButton btnsignin = new JButton("Already registered? Sign In");
+		btnsignin.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	
+		        // Instance of the SignIn class
+		    	
+		        SignIn signInForm = new SignIn();
+		        
+		        // Making sign-in form visible
+		        
+		        signInForm.setVisible(true);
+		        
+		        // Closing current registration form
+		        
+		        dispose();
+		    }
+		});
+		btnsignin.setFont(new Font("SimSun", Font.BOLD, 16));
+		btnsignin.setBounds(24, 444, 361, 23);
+		contentPane.add(btnsignin);
+	}
+}
